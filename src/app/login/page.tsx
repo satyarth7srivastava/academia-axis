@@ -1,0 +1,94 @@
+"use client"
+
+import NavBar from "@/components/navbar"
+import Footer from "@/components/footer"
+
+import Link from "next/link"
+import { useState } from "react"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+
+
+export default function LoginPage(){
+    const router = useRouter();
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    });
+    const handleChange = (e: any) => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
+    }
+    const handleSubmit =  async (e: any) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post("/api/users/login",data);
+            const resData = res.data;
+            if(resData.success){
+                router.push("/dashboard");
+            } else {
+                alert("Invalid Credentials");
+            }
+        } catch (error: any) {
+            console.log(error.message);
+            throw new Error(error.message);
+        }
+    }
+    return(
+        <div>
+            <NavBar />
+            <div 
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "80vh",
+                    flexDirection: "column"
+                }}
+            >
+                <h1
+                    style={{
+                        marginBottom: "20px"
+                    }}
+                >Login</h1>
+                <form
+                    onSubmit={handleSubmit}
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px"
+                    }}
+                >
+                    <input
+                    name="email"
+                    value={data.email}
+                    onChange = {handleChange}
+                    className="p-2 text-black"
+                    type="text" placeholder="Username" />
+                    <input
+                    name = "password"
+                    value={data.password}
+                    onChange = {handleChange}
+                    onKeyDown={(e) => {
+                        if(e.key === "Enter"){
+                            handleSubmit(e);
+                        }else{
+                            return;
+                        }
+                    }}
+                    className="p-2 text-black"
+                    type="password" placeholder="Password" />
+                    <button
+                    className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+                    >Login</button>
+                    <Link href="/signup"
+                    className="text-blue-500"
+                    >Register...</Link>
+                </form>
+            </div>
+            <Footer />
+        </div>
+    )
+}
