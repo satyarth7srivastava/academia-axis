@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const trackedCoursesSchema = mongoose.Schema({
     courseID: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     courseName: {

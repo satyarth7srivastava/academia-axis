@@ -2,15 +2,18 @@
 
 import NavBar from "@/components/navbar"
 import Footer from "@/components/footer"
+import Loader from "@/components/loader"
 
 import Link from "next/link"
 import { useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import { set } from "mongoose"
 
 
 export default function LoginPage(){
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -24,6 +27,7 @@ export default function LoginPage(){
     const handleSubmit =  async (e: any) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const res = await axios.post("/api/users/login",data);
             const resData = res.data;
             if(resData.success){
@@ -36,6 +40,10 @@ export default function LoginPage(){
             throw new Error(error.message);
         }
     }
+    if(loading){
+        return <Loader />
+    }
+
     return(
         <div>
             <NavBar />

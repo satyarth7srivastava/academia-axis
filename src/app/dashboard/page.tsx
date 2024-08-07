@@ -2,6 +2,7 @@
 
 import NavBar from "@/components/navbar"
 import Footer from "@/components/footer"
+import Loader from "@/components/loader"
 
 import { useState, useEffect } from "react"
 import axios from "axios"
@@ -9,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { list } from "postcss"
 
 export default function dashboard() {
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
     const [isLogged, setIsLogged] = useState(false);
     const [data, setData] = useState({
@@ -32,6 +34,8 @@ export default function dashboard() {
             } catch (error: any) {
                 console.log(error.message);
                 throw new Error(error.message);
+            } finally {
+                setLoading(false);
             }
         }
         getData();
@@ -52,6 +56,10 @@ export default function dashboard() {
             console.log(error.message);
             throw new Error(error.message);
         }
+    }
+
+    if (loading) {
+        return <Loader />
     }
 
 
