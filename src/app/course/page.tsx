@@ -7,7 +7,6 @@ import Loader from "@/components/loader";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { cookies } from "next/headers";
 
 
 
