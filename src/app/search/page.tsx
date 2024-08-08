@@ -80,6 +80,7 @@ export default function SearchPage() {
                         onChange={handleChange}
                     />
                 </div>
+                {results.length === 0 && !loading && <h1 className="text-center text-2xl text-white">{(search)? "No results": "Try 'DSA'"}</h1>}
                 {loading && <Loader />}
                 <ul
                     className="grid gap-4 grid-row-3 grid-cols-1 lg:grid-cols-3"
