@@ -19,14 +19,16 @@ export default function SearchPage() {
                 const { data } = await axios.post("/api/courses/getAllCourses", { search: (search) ? search : "bug" });
                 console.log(data);
                 const objs = data.body.map((item: any) => {
+                    let desc = item.courseDescription;
+                    var trimmedString = desc.substring(0, 80);
                     return(
                         <li
                         key={item._id}
-                        className="bg-gray-100 w-full " >
+                        className="bg-gray-300 w-full rounded-lg" >
                             <div className="grid grid-cols-2">
                                 <div className="text-left text-gray-800 p-4">
                                     <h1 className="text-2xl">{item.courseName}</h1>
-                                    <p>{item.courseDescription}</p>
+                                    <p>{trimmedString}</p>
                                 </div>
                                 <div>
                                     <img
@@ -42,7 +44,7 @@ export default function SearchPage() {
                                     <div
                                     className="text-right"
                                     >
-                                        Price
+                                        {item.coursePrice}
                                     </div>
                                 </div>
                             </div>
