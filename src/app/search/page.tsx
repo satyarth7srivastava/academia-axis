@@ -2,21 +2,25 @@
 
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
+import Loader from "@/components/loader";
 
 
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Link from "next/link";
+import { set } from "mongoose";
 
 
 export default function SearchPage() {
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.post("/api/courses/getAllCourses", { search: (search) ? search : "bug" });
+                setLoading(true);
+                const { data } = await axios.post("/api/courses/getAllCourses", { search: (search) ? search : "" });
                 const objs = data.body.map((item: any) => {
                     let desc = item.courseDescription;
                     var trimmedString = desc.substring(0, 80);
@@ -53,6 +57,8 @@ export default function SearchPage() {
                 setResults(objs);
             } catch (error: any) {
                 console.log(error.message);
+            } finally {
+                setLoading(false);
             }
         }
         fetchData();
@@ -74,6 +80,7 @@ export default function SearchPage() {
                         onChange={handleChange}
                     />
                 </div>
+                {loading && <Loader />}
                 <ul
                     className="grid gap-4 grid-row-3 grid-cols-1 lg:grid-cols-3"
                 >
