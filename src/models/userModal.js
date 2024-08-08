@@ -1,20 +1,6 @@
+import { link } from "fs";
 import mongoose from "mongoose";
 
-const trackedCoursesSchema = mongoose.Schema({
-    courseID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
-    courseName: {
-        type: String,
-        required: true
-    },
-    status: {
-        type: String,
-        required: true,
-        default: "Not Started"
-    }
-})
 
 const userSchema = mongoose.Schema({
     name: {
@@ -43,7 +29,13 @@ const userSchema = mongoose.Schema({
         required: true
     },
     CoursesEnrolledList: {
-        type: [trackedCoursesSchema],
+        type: [
+            {
+                course_id: mongoose.Schema.Types.ObjectId, 
+                name: String,
+                link: String
+            }
+        ],
         default: []
     },
     authToken: {

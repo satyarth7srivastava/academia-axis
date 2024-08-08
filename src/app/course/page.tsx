@@ -6,12 +6,14 @@ import Loader from "@/components/loader";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
 
 
 
-export default function course(){
+export default function course() {
+    const router = useRouter();
     const id = useSearchParams().get("id");
     const [loading, setLoading] = useState(true);
     const [courseData, setCourseData] = useState({
@@ -57,34 +59,59 @@ export default function course(){
         }
         getCourse();
     }, [])
-    if(loading){
+
+    const startTracking = async () => {
+        try {
+            const courseObj = {
+                id: id,
+                courseName: courseData.courseName,
+                courseLink: courseData.courseLink
+            }
+            const res = await axios.post("/api/users/startTracking", courseObj);
+            const { message } = res.data;
+            if (message === "Course added to your tracking list") {
+                alert("Course added to your tracking list");
+            }
+        } catch (error: any) {
+            const { message } = error.response.data;
+            if (message === "Unauthorized") {
+                alert("Please login to start tracking this course");
+                router.push("/login");
+            } else if (message === "Course already in tracking list") {
+                alert("Course already in tracking list");
+            }
+        }
+    }
+
+    if (loading) {
         return <Loader />
     }
-    if(error){
+    if (error) {
         return <h1>{error} <br /> 404 = Course Not Found</h1>
     }
 
     return (
         <div>
-            <NavBar isLogged = {true}/>
+            <NavBar isLogged={true} />
             <div
-            className="flex flex-col items-center justify-center gap-4 m-4"
+                className="flex flex-col items-center justify-center gap-4 m-4"
             >
                 <h1>{courseData.courseName}</h1>
                 <div
-                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
                     <div>
                         <img
-                        className="mb-4 w-full h-half object-cover rounded-md"
-                        src = {courseData.courseImage} alt="Course Image" />
+                            className="mb-4 w-full h-half object-cover rounded-md"
+                            src={courseData.courseImage} alt="Course Image" />
                         <button
-                        className="mb-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                            onClick={startTracking}
+                            className="mb-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                         >Start Tracking</button>
                         <p>
-                            <strong>Course Link:</strong> <a 
-                            className="text-blue-500 hover:underline"
-                            href={courseData.courseLink}>Here</a><br />
+                            <strong>Course Link:</strong> <a
+                                className="text-blue-500 hover:underline"
+                                href={courseData.courseLink}>Here</a><br />
                             <strong>Course Rating:</strong> {courseData.courseRating} / 10<br />
                             <strong>Course By:</strong> {courseData.courseInstructor}<br />
                             <strong>Course Duration:</strong> {courseData.courseDuration} hrs<br />
@@ -100,8 +127,6 @@ export default function course(){
                         </p>
                     </div>
                 </div>
-
-
             </div>
             <Footer />
         </div>

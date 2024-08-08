@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connect from "@/db/connectDb";
 import User from "@/models/userModal.js";
+import { list } from "postcss";
 
 
 connect();
@@ -15,7 +16,8 @@ export async function GET(req: NextRequest){
         const res = NextResponse.json({
             name: user.name,
             email: user.email,
-            clg: user.clg
+            clg: user.clg,
+            list: user.CoursesEnrolledList
         }, { status: 200 });
         return res;
 
