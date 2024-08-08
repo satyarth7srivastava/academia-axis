@@ -42,7 +42,7 @@ export default function SearchPage() {
                                     className="text-right p-4 grid grid-cols-2 items-center text-black"
                                 >
                                     <Link
-                                    className="bg-blue-700 text-white p-2 m-4 rounded-lg text-center"
+                                    className="bg-blue-700 text-white p-2 m-4 rounded-lg text-center min-w-full"
                                     href={`/course/?id=${item._id}`}>View Course</Link>
                                     <div
                                     className="text-right"
