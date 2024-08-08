@@ -17,7 +17,6 @@ export default function SearchPage() {
         const fetchData = async () => {
             try {
                 const { data } = await axios.post("/api/courses/getAllCourses", { search: (search) ? search : "bug" });
-                console.log(data);
                 const objs = data.body.map((item: any) => {
                     let desc = item.courseDescription;
                     var trimmedString = desc.substring(0, 80);
