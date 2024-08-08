@@ -6,8 +6,8 @@ import User from "@/models/userModal.js";
 connect();
 
 export async function GET(req: NextRequest){
+    const authToken = req.cookies.get("authToken")?.value;
     try {
-        const authToken = req.cookies.get("authToken")?.value;
         const user = await User.findOne({authToken: authToken});
         if(!user){
             return NextResponse.redirect(new URL('/login', req.nextUrl));
