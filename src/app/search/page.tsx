@@ -8,7 +8,6 @@ import Loader from "@/components/loader";
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Link from "next/link";
-import { set } from "mongoose";
 
 
 export default function SearchPage() {
@@ -24,10 +23,10 @@ export default function SearchPage() {
                 const objs = data.body.map((item: any) => {
                     let desc = item.courseDescription;
                     var trimmedString = desc.substring(0, 80);
-                    return(
+                    return (
                         <li
-                        key={item._id}
-                        className="bg-gray-300 w-full rounded-lg" >
+                            key={item._id}
+                            className="bg-gray-300 w-full rounded-lg" >
                             <div className="grid grid-cols-2">
                                 <div className="text-left text-gray-800 p-4">
                                     <h1 className="text-2xl">{item.courseName}</h1>
@@ -42,10 +41,10 @@ export default function SearchPage() {
                                     className="text-right p-4 grid grid-cols-2 items-center text-black"
                                 >
                                     <Link
-                                    className="bg-blue-700 text-white p-2 m-4 rounded-lg text-center min-w-full"
-                                    href={`/course/?id=${item._id}`}>View Course</Link>
+                                        className="bg-blue-700 text-white p-2 m-4 rounded-lg text-center min-w-full"
+                                        href={`/course/?id=${item._id}`}>View Course</Link>
                                     <div
-                                    className="text-right"
+                                        className="text-right"
                                     >
                                         {item.coursePrice}
                                     </div>
@@ -80,7 +79,7 @@ export default function SearchPage() {
                         onChange={handleChange}
                     />
                 </div>
-                {results.length === 0 && !loading && <h1 className="text-center text-2xl text-white">{(search)? "No results": "Try 'DSA'"}</h1>}
+                {results.length === 0 && !loading && <h1 className="text-center text-2xl text-white">{(search) ? "No results" : "Try 'DSA'"}</h1>}
                 {loading && <Loader />}
                 <ul
                     className="grid gap-4 grid-row-3 grid-cols-1 lg:grid-cols-3"
