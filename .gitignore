@@ -28,6 +28,7 @@ test
 
 # local env files
 .env*.local
+.env 
 
 # vercel
 .vercel
