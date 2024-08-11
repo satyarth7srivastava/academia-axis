@@ -12,6 +12,6 @@ export default async function connect() {
             process.exit(1);
         });
     } catch (error) {
-        console.error("Error connecting to MongoDB: ", error);
+        console.error("Error connecting to MongoDB: ", error); 
     }
 }
