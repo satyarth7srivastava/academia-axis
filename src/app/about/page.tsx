@@ -2,12 +2,11 @@
 
 import NavBar from "@/components/navbar";
 import Footer from "@/components/footer";
-import profilePhoto from "@/components/profile.png";
 
 export default function AboutPage() {
     const uri = process.env.PROFILE_URI;
     return (
-        <div>
+        <div> 
             <NavBar />
             <main className="max-w-4xl mx-auto p-6 text-black">
                 <section className="bg-white shadow-md rounded-lg p-6 mb-6">

@@ -70,7 +70,20 @@ export default function SearchPage() {
     return (
         <div>
             <NavBar />
-            <div className="container mx-auto m-4 text-black">
+            <div>
+                <h1
+                    className="text-4xl text-center mt-8 text-white"
+                >Search for a Course</h1>
+                <h2
+                    className="text-2xl text-center mt-4 text-white"
+                >Find the course you are looking for</h2>
+                <div
+                className="border-2 border-red-800 text-red-800 p-2 rounded-lg text-center m-4 w-1/2 mx-auto"
+                >
+                    These are only for demo purposes. All the courses are free to access.
+                </div>
+            </div>
+            <div className="container mx-auto m-4 text-black min-h-128">
                 <div className="flex justify-center p-4">
                     <input
                         type="text"

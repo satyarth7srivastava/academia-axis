@@ -10,7 +10,7 @@ export default function HomePage() {
             <NavBar />
             {/* try to add some min-height so that ut would look good */}
             <div 
-            className=""
+            className="min-h-128"
             >
                 <h1
                     className="text-4xl text-center mt-8"
@@ -28,6 +28,12 @@ export default function HomePage() {
                 >
                     Login To Continue learning
                 </Link>
+                {/* lets add a disclaimer in red bordered box */}
+                <div
+                className="border-2 border-red-800 text-red-800 p-2 rounded-lg text-center m-4 w-1/2 mx-auto"
+                >
+                    This is a demo project. It does not include any paid promotions or courses. All the courses are free to access.
+                </div>
                 <p
                     className="text-lg text-center mt-4"
                 >Access various free courses to enhance your knowledge and skills.</p>
